@@ -18,10 +18,16 @@ public class Main {
         Grad g=gdao.glavniGrad("Francuska");
         System.out.println(g.getBrojStanovnika()+" "+g.getNaziv());
         Drzava d=gdao.nadjiDrzavu("Engleska");
-        System.out.println(d.getId()+" "+d.getGlavniGrad());*/
-        ArrayList<Grad> gradovi = gdao.gradovi();
+        System.out.println(d.getId()+" "+d.getGlavniGrad().getNaziv());*/
+        /*ArrayList<Grad> gradovi = gdao.gradovi();
         for(Grad g:gradovi){
-            System.out.println(g.getBrojStanovnika()+" "+g.getNaziv()+" "+g.getDrzava());
-        }
+            System.out.println(g.getBrojStanovnika()+" "+g.getNaziv()+" "+g.getDrzava().getNaziv());*/
+        GeografijaDAO dao = GeografijaDAO.getInstance();
+        Grad bech = dao.glavniGrad("Austrija");
+        bech.setNaziv("Vienna");
+        dao.izmijeniGrad(bech);
+
+        ArrayList<Grad> gradovi = dao.gradovi();
+        System.out.println(gradovi.get(2).getNaziv());
     }
 }

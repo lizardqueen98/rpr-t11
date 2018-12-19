@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class GeografijaDAO {
     private Connection connection;
@@ -41,12 +42,10 @@ public class GeografijaDAO {
             grad.setId(id);
             grad.setNaziv(result.getString(1));
             grad.setBrojStanovnika(result.getInt(2));
-            int idDrazve = result.getInt(3);
-            result = statement.executeQuery("SELECT naziv FROM drzava WHERE id="+idDrazve);
-            grad.setDrzava(result.getString(1));
+            grad.setDrzava(nadjiDrzavu(drzava));
         }
         catch(Exception e){
-            System.out.println("Ne valja upit.");
+            return null;
         }
         return grad;
     }
@@ -54,7 +53,7 @@ public class GeografijaDAO {
 
     }
     public ArrayList<Grad> gradovi(){
-        ArrayList<Grad> gradovi = new ArrayList<>();
+        TreeSet<Grad> gradovi = new TreeSet<>();
         try {
             ResultSet result = statement.executeQuery("SELECT * FROM grad");
             while (result.next()) {
@@ -63,37 +62,65 @@ public class GeografijaDAO {
                 grad.setNaziv(result.getString(2));
                 grad.setBrojStanovnika(result.getInt(3));
                 int idDrzave = result.getInt(4);
+                //mora se napraviti nova statement!!!
                 Statement statement1=connection.createStatement();
                 ResultSet result1 = statement1.executeQuery("SELECT naziv FROM drzava WHERE id="+idDrzave);
-                grad.setDrzava(result1.getString(1));
+                grad.setDrzava(nadjiDrzavu(result1.getString(1)));
                 gradovi.add(grad);
             }
         }
         catch (Exception e){
             System.out.println("Ne valja upit.");
         }
-        return gradovi;
+        ArrayList<Grad> listaGradova = new ArrayList<>();
+        listaGradova.addAll(gradovi);
+        return listaGradova;
     }
     public void dodajGrad(Grad grad){
-
+        try{
+            statement.executeQuery("insert into grad(naziv,broj_stanovnika,drzava) values('"+grad.getNaziv()+"', "+grad.getBrojStanovnika()+", "+grad.getDrzava().getId()+")");
+        }
+        catch(Exception e){
+            //e.printStackTrace();
+        }
     }
     public void izmijeniGrad(Grad grad){
-
+        try{
+            statement.executeQuery("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+"WHERE id="+grad.getId());
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
     public Drzava nadjiDrzavu(String drzava){
         Drzava drz = new Drzava();
         try {
+            //ako pozivas ovu fju iz neke druge poremeti se statement pravi novu svaki put
+            Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT id, glavni_grad FROM drzava WHERE naziv='"+drzava+"'");
             drz.setId(result.getInt(1));
             int idGrada = result.getInt(2);
-            result = statement.executeQuery("SELECT naziv FROM grad WHERE id="+idGrada);
-            drz.setGlavniGrad(result.getString(1));
+            result = statement.executeQuery("SELECT * FROM grad WHERE id="+idGrada);
+            Grad grad =new Grad();
+            grad.setId(result.getInt(1));
+            grad.setNaziv(result.getString(2));
+            grad.setBrojStanovnika(result.getInt(3));
+            grad.setDrzava(drz);
+            drz.setGlavniGrad(grad);
             drz.setNaziv(drzava);
         }
         catch(Exception e){
             System.out.println("Ne valja upit.");
         }
         return drz;
+    }
+    public void dodajDrzavu(Drzava drzava){
+        try {
+            statement.executeQuery("insert into drzava(naziv,glavni_grad) values('" + drzava.getNaziv() + "'," + drzava.getGlavniGrad().getId() + ")");
+        }
+        catch(Exception e){
+
+        }
     }
 
 }

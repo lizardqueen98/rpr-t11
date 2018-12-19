@@ -1,10 +1,10 @@
 package ba.unsa.etf.rpr;
 
-public class Grad {
+public class Grad implements Comparable<Grad>{
     private int id;
     private String naziv;
     private int brojStanovnika;
-    private String drzava;
+    private Drzava drzava;
 
     public int getId() {
         return id;
@@ -30,11 +30,18 @@ public class Grad {
         this.brojStanovnika = brojStanovnika;
     }
 
-    public String getDrzava() {
+    public Drzava getDrzava() {
         return drzava;
     }
 
-    public void setDrzava(String drzava) {
+    public void setDrzava(Drzava drzava) {
         this.drzava = drzava;
+    }
+
+    @Override
+    public int compareTo(Grad o) {
+        if(brojStanovnika>o.brojStanovnika) return -1;
+        if(brojStanovnika==o.brojStanovnika) return 0;
+        return 1;
     }
 }
