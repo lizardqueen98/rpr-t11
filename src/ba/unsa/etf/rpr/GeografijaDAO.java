@@ -8,7 +8,8 @@ public class GeografijaDAO {
     private static GeografijaDAO instance;
     private String URL = "jdbc:sqlite:baza.db";
     private Statement statement;
-    public GeografijaDAO(){try {
+    public GeografijaDAO(){
+        try {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection(URL);
         statement = connection.createStatement();
@@ -40,10 +41,12 @@ public class GeografijaDAO {
             grad.setId(id);
             grad.setNaziv(result.getString(1));
             grad.setBrojStanovnika(result.getInt(2));
-            grad.setDrzava(result.getInt(3));
+            int idDrazve = result.getInt(3);
+            result = statement.executeQuery("SELECT naziv FROM drzava WHERE id="+idDrazve);
+            grad.setDrzava(result.getString(1));
         }
         catch(Exception e){
-            System.out.println("Ne valja upit");
+            System.out.println("Ne valja upit.");
         }
         return grad;
     }
@@ -51,7 +54,25 @@ public class GeografijaDAO {
 
     }
     public ArrayList<Grad> gradovi(){
-        return null;
+        ArrayList<Grad> gradovi = new ArrayList<>();
+        try {
+            ResultSet result = statement.executeQuery("SELECT * FROM grad");
+            while (result.next()) {
+                Grad grad = new Grad();
+                grad.setId(result.getInt(1));
+                grad.setNaziv(result.getString(2));
+                grad.setBrojStanovnika(result.getInt(3));
+                int idDrzave = result.getInt(4);
+                Statement statement1=connection.createStatement();
+                ResultSet result1 = statement1.executeQuery("SELECT naziv FROM drzava WHERE id="+idDrzave);
+                grad.setDrzava(result1.getString(1));
+                gradovi.add(grad);
+            }
+        }
+        catch (Exception e){
+            System.out.println("Ne valja upit.");
+        }
+        return gradovi;
     }
     public void dodajGrad(Grad grad){
 
@@ -60,7 +81,19 @@ public class GeografijaDAO {
 
     }
     public Drzava nadjiDrzavu(String drzava){
-        return null;
+        Drzava drz = new Drzava();
+        try {
+            ResultSet result = statement.executeQuery("SELECT id, glavni_grad FROM drzava WHERE naziv='"+drzava+"'");
+            drz.setId(result.getInt(1));
+            int idGrada = result.getInt(2);
+            result = statement.executeQuery("SELECT naziv FROM grad WHERE id="+idGrada);
+            drz.setGlavniGrad(result.getString(1));
+            drz.setNaziv(drzava);
+        }
+        catch(Exception e){
+            System.out.println("Ne valja upit.");
+        }
+        return drz;
     }
 
 }

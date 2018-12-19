@@ -4,7 +4,7 @@ public class Grad {
     private int id;
     private String naziv;
     private int brojStanovnika;
-    private int drzava;
+    private String drzava;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class Grad {
         this.brojStanovnika = brojStanovnika;
     }
 
-    public int getDrzava() {
+    public String getDrzava() {
         return drzava;
     }
 
-    public void setDrzava(int drzava) {
+    public void setDrzava(String drzava) {
         this.drzava = drzava;
     }
 }
