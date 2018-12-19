@@ -86,7 +86,7 @@ public class GeografijaDAO {
     }
     public void izmijeniGrad(Grad grad){
         try{
-            statement.executeQuery("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+"WHERE id="+grad.getId());
+            statement.executeQuery("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+" WHERE id="+grad.getId());
         }
         catch(Exception e){
             e.printStackTrace();
