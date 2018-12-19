@@ -53,8 +53,9 @@ public class GeografijaDAO {
         try {
             int idDrzave=nadjiDrzavu(drzava).getId();
             statement = connection.createStatement();
-            statement.executeQuery("delete drzava where id="+idDrzave);
-            statement.executeQuery("delete grad where drzava="+idDrzave);
+            statement.executeUpdate("delete drzava where id="+idDrzave);
+            statement = connection.createStatement();
+            statement.executeUpdate("delete grad where drzava="+idDrzave);
         }catch(Exception e){
 
         }
@@ -87,16 +88,16 @@ public class GeografijaDAO {
     public void dodajGrad(Grad grad){
         try{
             statement = connection.createStatement();
-            statement.executeQuery("insert into grad(naziv,broj_stanovnika,drzava) values('"+grad.getNaziv()+"', "+grad.getBrojStanovnika()+", "+grad.getDrzava().getId()+")");
+            statement.executeUpdate("insert into grad(naziv,broj_stanovnika,drzava) values('"+grad.getNaziv()+"', "+grad.getBrojStanovnika()+", "+grad.getDrzava().getId()+")");
         }
         catch(Exception e){
-            //e.printStackTrace();
+            e.printStackTrace();
         }
     }
     public void izmijeniGrad(Grad grad){
         try{
             statement = connection.createStatement();
-            statement.executeQuery("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+" WHERE id="+grad.getId());
+            statement.executeUpdate("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+" WHERE id="+grad.getId());
         }
         catch(Exception e){
             //e.printStackTrace();
@@ -127,7 +128,7 @@ public class GeografijaDAO {
     public void dodajDrzavu(Drzava drzava){
         try {
             statement = connection.createStatement();
-            statement.executeQuery("insert into drzava(naziv,glavni_grad) values('" + drzava.getNaziv() + "'," + drzava.getGlavniGrad().getId() + ")");
+            statement.executeUpdate("insert into drzava(naziv,glavni_grad) values('" + drzava.getNaziv() + "'," + drzava.getGlavniGrad().getId() + ")");
         }
         catch(Exception e){
 
