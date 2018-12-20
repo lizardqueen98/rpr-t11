@@ -1,9 +1,19 @@
 package ba.unsa.etf.rpr;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Main {
+import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
+
+//import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
+
+public class Main extends Application {
 
     public static String ispisiGradove() {
         GeografijaDAO gdao = GeografijaDAO.getInstance();
@@ -22,8 +32,9 @@ public class Main {
         System.out.println("Glavni grad "+drzava+"-e je "+grad.getNaziv());
     }
     public static void main(String[] args) {
-        System.out.println("Gradovi su:\n" + ispisiGradove());
-        glavniGrad();
+        launch(args);
+        /*System.out.println("Gradovi su:\n" + ispisiGradove());
+        glavniGrad();*/
         /*
         Grad g=gdao.glavniGrad("Francuska");
         System.out.println(g.getBrojStanovnika()+" "+g.getNaziv());
@@ -39,5 +50,14 @@ public class Main {
 
         ArrayList<Grad> gradovi = dao.gradovi();
         System.out.println(gradovi.get(2).getNaziv());*/
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/opcije.fxml"));
+        Parent root1 = loader1.load();
+        primaryStage.setTitle("Meni");
+        primaryStage.setScene(new Scene(root1, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
+        primaryStage.show();
     }
 }
