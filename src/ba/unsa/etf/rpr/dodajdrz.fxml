@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="195.0" prefWidth="354.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.DodajDrzavu">
+   <children>
+      <Button fx:id="ok" layoutX="293.0" layoutY="153.0" mnemonicParsing="false" onAction="#ok" text="OK" />
+      <Label layoutX="31.0" layoutY="89.0" text="Unesi glavni grad:" />
+      <TextField fx:id="glgr" layoutX="177.0" layoutY="85.0" />
+   </children>
+</AnchorPane>

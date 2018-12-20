@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
 
-//import static javafx.scene.control.PopupControl.USE_COMPUTED_SIZE;
 
 public class Main extends Application {
 
@@ -54,7 +53,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("/opcije.fxml"));
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("opcije.fxml"));
         Parent root1 = loader1.load();
         primaryStage.setTitle("Meni");
         primaryStage.setScene(new Scene(root1, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
