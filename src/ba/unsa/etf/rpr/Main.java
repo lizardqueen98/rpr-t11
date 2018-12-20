@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     public static String ispisiGradove() {
-        GeografijaDAO gdao = new GeografijaDAO();
+        GeografijaDAO gdao = GeografijaDAO.getInstance();
         String s=new String();
         ArrayList<Grad> gradovi = gdao.gradovi();
         for (Grad g : gradovi) {
@@ -15,7 +15,7 @@ public class Main {
         return s;
     }
     public static void glavniGrad(){
-        GeografijaDAO gdao = new GeografijaDAO();
+        GeografijaDAO gdao = GeografijaDAO.getInstance();
         Scanner sc = new Scanner(System.in);
         String drzava = sc.nextLine();
         Grad grad = gdao.glavniGrad(drzava);

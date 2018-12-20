@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -9,11 +10,22 @@ public class GeografijaDAO {
     private static GeografijaDAO instance;
     private String URL = "jdbc:sqlite:baza.db";
     private Statement statement;
-    public GeografijaDAO(){
+    private GeografijaDAO(){
         try {
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection(URL);
         statement = connection.createStatement();
+        statement.executeUpdate("delete from drzava");
+        statement.executeUpdate("delete from grad");
+        statement.executeUpdate("insert into drzava(id,naziv,glavni_grad) values (1,'Francuska',1)");
+        statement.executeUpdate("insert into drzava(id,naziv,glavni_grad) values (2,'Velika Britanija',2)");
+        statement.executeUpdate("insert into drzava(id,naziv,glavni_grad) values (3,'Austrija',3)");
+        statement.executeUpdate("insert into grad(id,naziv,broj_stanovnika,drzava) values (1,'Pariz',2206488,1)");
+        statement.executeUpdate("insert into grad(id,naziv,broj_stanovnika,drzava) values (2,'London',8825000,2)");
+        statement.executeUpdate("insert into grad(id,naziv,broj_stanovnika,drzava) values (3,'Beč',1899055,3)");
+        statement.executeUpdate("insert into grad(id,naziv,broj_stanovnika,drzava) values (4,'Manchester',545500,2)");
+        statement.executeUpdate("insert into grad(id,naziv,broj_stanovnika,drzava) values (5,'Graz',280200,3)");
+
     } catch (ClassNotFoundException | SQLException e) {
         System.out.println(e.getMessage());
     }
@@ -38,6 +50,7 @@ public class GeografijaDAO {
             statement = connection.createStatement();
             ResultSet result = statement.executeQuery(upit);
             int id = result.getInt(1);
+
             //System.out.println(id);
             result = statement.executeQuery("SELECT naziv, broj_stanovnika, drzava FROM grad WHERE id="+id);
             grad.setId(id);
@@ -46,18 +59,19 @@ public class GeografijaDAO {
             grad.setDrzava(nadjiDrzavu(drzava));
         }
         catch(Exception e){
+            return null;
         }
         return grad;
     }
     public void obrisiDrzavu(String drzava){
         try {
             int idDrzave=nadjiDrzavu(drzava).getId();
-            statement = connection.createStatement();
-            statement.executeUpdate("delete drzava where id="+idDrzave);
-            statement = connection.createStatement();
-            statement.executeUpdate("delete grad where drzava="+idDrzave);
+            //statement = connection.createStatement();
+            statement.executeUpdate("delete from drzava where id="+idDrzave);
+            //statement = connection.createStatement();
+            statement.executeUpdate("delete from grad where drzava="+idDrzave);
         }catch(Exception e){
-
+            e.printStackTrace();
         }
     }
     public ArrayList<Grad> gradovi(){
@@ -87,7 +101,7 @@ public class GeografijaDAO {
     }
     public void dodajGrad(Grad grad){
         try{
-            statement = connection.createStatement();
+            //statement = connection.createStatement();
             statement.executeUpdate("insert into grad(naziv,broj_stanovnika,drzava) values('"+grad.getNaziv()+"', "+grad.getBrojStanovnika()+", "+grad.getDrzava().getId()+")");
         }
         catch(Exception e){
@@ -96,7 +110,7 @@ public class GeografijaDAO {
     }
     public void izmijeniGrad(Grad grad){
         try{
-            statement = connection.createStatement();
+            //statement = connection.createStatement();
             statement.executeUpdate("UPDATE grad SET naziv='"+grad.getNaziv()+"', broj_stanovnika="+grad.getBrojStanovnika()+", drzava="+grad.getDrzava().getId()+" WHERE id="+grad.getId());
         }
         catch(Exception e){
@@ -127,7 +141,7 @@ public class GeografijaDAO {
     }
     public void dodajDrzavu(Drzava drzava){
         try {
-            statement = connection.createStatement();
+            //statement = connection.createStatement();
             statement.executeUpdate("insert into drzava(naziv,glavni_grad) values('" + drzava.getNaziv() + "'," + drzava.getGlavniGrad().getId() + ")");
         }
         catch(Exception e){
