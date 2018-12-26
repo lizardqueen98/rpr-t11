@@ -31,24 +31,24 @@ public class Main extends Application {
         System.out.println("Glavni grad "+drzava+"-e je "+grad.getNaziv());
     }
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);/*
         /*System.out.println("Gradovi su:\n" + ispisiGradove());
         glavniGrad();*/
-        /*
-        Grad g=gdao.glavniGrad("Francuska");
+        GeografijaDAO gdao = GeografijaDAO.getInstance();
+        /*Grad g=gdao.glavniGrad("Francuska");
         System.out.println(g.getBrojStanovnika()+" "+g.getNaziv());
-        Drzava d=gdao.nadjiDrzavu("Engleska");
+        Drzava d=gdao.nadjiDrzavu("Velika Britanija");
         System.out.println(d.getId()+" "+d.getGlavniGrad().getNaziv());*/
-        /*ArrayList<Grad> gradovi = gdao.gradovi();
-        for(Grad g:gradovi){
-            System.out.println(g.getBrojStanovnika()+" "+g.getNaziv()+" "+g.getDrzava().getNaziv());*/
-        /*GeografijaDAO dao = GeografijaDAO.getInstance();
-        Grad bech = dao.glavniGrad("Austrija");
+        //ArrayList<Grad> gradovi = gdao.gradovi();
+        /*for(Grad g:gradovi){
+            System.out.println(g.getBrojStanovnika()+" "+g.getNaziv()+" "+g.getDrzava().getNaziv());}*/
+        /*GeografijaDAO dao = GeografijaDAO.getInstance();*/
+        Grad bech = gdao.glavniGrad("Austrija");
         bech.setNaziv("Vienna");
-        dao.izmijeniGrad(bech);
+        gdao.izmijeniGrad(bech);
 
-        ArrayList<Grad> gradovi = dao.gradovi();
-        System.out.println(gradovi.get(2).getNaziv());*/
+        ArrayList<Grad> gradovi = gdao.gradovi();
+        System.out.println(gradovi.get(2).getNaziv());
     }
 
     @Override
