@@ -262,5 +262,7 @@ public class GeografijaDAO {
         }
         return grd;
     }
-
+    public Connection getConnection(){
+        return connection;
+    }
 }

@@ -31,7 +31,7 @@ public class Main extends Application {
         System.out.println("Glavni grad "+drzava+"-e je "+grad.getNaziv());
     }
     public static void main(String[] args) {
-        launch(args);/*
+        launch(args);
         /*System.out.println("Gradovi su:\n" + ispisiGradove());
         glavniGrad();*/
         //GeografijaDAO gdao = GeografijaDAO.getInstance();
