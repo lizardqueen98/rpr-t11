@@ -16,5 +16,6 @@ public class DodajDrzavuKontroler {
         Drzava drzava = new Drzava();
         drzava.setNaziv(imeDrzave.getText());
         drzava.setGlavniGrad(gdao.nadjiGrad(glavniGrad.getText()));
+        gdao.dodajDrzavu(drzava);
     }
 }

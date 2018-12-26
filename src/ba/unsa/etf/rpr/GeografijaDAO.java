@@ -104,7 +104,11 @@ public class GeografijaDAO {
                 //Statement statement1=connection.createStatement();
                 podupit.setInt(1,idDrzave);
                 ResultSet result1 = podupit.executeQuery();
-                grad.setDrzava(nadjiDrzavu(result1.getString(1)));
+                try{
+                    grad.setDrzava(nadjiDrzavu(result1.getString(1)));
+                }catch(Exception e){
+                    grad.setDrzava(null);
+                }
                 gradovi.add(grad);
             }
         }
@@ -120,7 +124,9 @@ public class GeografijaDAO {
             statement = connection.prepareStatement("insert into grad(naziv,broj_stanovnika,drzava) values(?, ?, ?)");
             statement.setString(1,grad.getNaziv());
             statement.setInt(2,grad.getBrojStanovnika());
-            statement.setInt(3,grad.getDrzava().getId());
+            if(grad.getDrzava()!=null)
+                statement.setInt(3,grad.getDrzava().getId());
+            else statement.setNull(3,Types.INTEGER);
             statement.executeUpdate();
         }
         catch(Exception e){
@@ -169,8 +175,8 @@ public class GeografijaDAO {
             }
         }
         catch(Exception e){
-            e.printStackTrace();
-            //System.out.println("Ne valja upit.");
+            //e.printStackTrace();
+            return null;
         }
         return drz;
     }
@@ -178,12 +184,14 @@ public class GeografijaDAO {
         try {
             //statement = connection.createStatement();
             statement = connection.prepareStatement("insert into drzava(naziv,glavni_grad) values(?, ?)");
-            statement.setString(2,drzava.getNaziv());
-            statement.setInt(3,drzava.getGlavniGrad().getId());
+            statement.setString(1,drzava.getNaziv());
+            if(drzava.getGlavniGrad()!=null)
+                statement.setInt(2,drzava.getGlavniGrad().getId());
+            else statement.setNull(2,Types.INTEGER);
             statement.executeUpdate();
         }
         catch(Exception e){
-
+            //e.printStackTrace();
         }
     }
     public ArrayList<Drzava> drzave(){
@@ -217,7 +225,7 @@ public class GeografijaDAO {
             }
         }
         catch (Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
             //System.out.println("Ne valja upit.");
         }
         return drzave;
@@ -232,7 +240,27 @@ public class GeografijaDAO {
         }
     }
     public Grad nadjiGrad(String grad){
-
+        Grad grd = new Grad();
+        try {
+            statement = connection.prepareStatement("SELECT id, broj_stanovnika, drzava FROM grad WHERE naziv=?");
+            statement.setString(1, grad);
+            ResultSet result = statement.executeQuery();
+            grd.setNaziv(grad);
+            grd.setId(result.getInt(1));
+            grd.setBrojStanovnika(result.getInt(2));
+            try{
+            PreparedStatement st = connection.prepareStatement("select naziv from drzava where id=?");
+            st.setInt(1,result.getInt(3));
+            ResultSet rs = st.executeQuery();
+            grd.setDrzava(nadjiDrzavu(rs.getString(1)));
+            }catch(Exception e){
+                grd.setDrzava(null);
+            }
+        }catch(Exception e){
+            //e.printStackTrace();
+            return null;
+        }
+        return grd;
     }
 
 }
