@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -53,7 +54,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("glavna.fxml"));
+        ResourceBundle bundle = ResourceBundle.getBundle("Translation");
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("glavna.fxml"),bundle);
         GeografijaDAO gdao = GeografijaDAO.getInstance();
         loader1.setController(new GlavnaKontroler(gdao));
         Parent root1 = loader1.load();
