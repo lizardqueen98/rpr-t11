@@ -14,6 +14,10 @@ public class DodajGradKontroler {
     }
 
     public void OK(ActionEvent actionEvent) {
-
+        Grad grad = new Grad();
+        grad.setNaziv(imeGrada.getText());
+        grad.setBrojStanovnika(Integer.parseInt(brojStanovnika.getText()));
+        grad.setDrzava(gdao.nadjiDrzavu(drzava.getText()));
+        gdao.dodajGrad(grad);
     }
 }

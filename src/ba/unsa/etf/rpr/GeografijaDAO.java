@@ -231,5 +231,8 @@ public class GeografijaDAO {
 
         }
     }
+    public Grad nadjiGrad(String grad){
+
+    }
 
 }

@@ -13,5 +13,8 @@ public class DodajDrzavuKontroler {
     }
 
     public void OK(ActionEvent actionEvent) {
+        Drzava drzava = new Drzava();
+        drzava.setNaziv(imeDrzave.getText());
+        drzava.setGlavniGrad(gdao.nadjiGrad(glavniGrad.getText()));
     }
 }

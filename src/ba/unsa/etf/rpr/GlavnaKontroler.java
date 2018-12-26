@@ -78,6 +78,11 @@ public class GlavnaKontroler implements Initializable {
             stage.setTitle("Dodaj grad");
             stage.setScene(new Scene(root1, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.show();
+            stage.setOnCloseRequest(event -> {
+                gradovi.clear();
+                gradovi.addAll(gdao.gradovi());
+                stage.close();
+            });
         }catch(Exception e){
 
         }
@@ -93,8 +98,14 @@ public class GlavnaKontroler implements Initializable {
             stage.setTitle("Dodaj drzavu");
             stage.setScene(new Scene(root1, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));
             stage.show();
+            stage.setOnCloseRequest(event -> {
+                drzave.clear();
+                drzave.addAll(gdao.drzave());
+                stage.close();
+            });
         }catch(Exception e){
 
         }
+
     }
 }
