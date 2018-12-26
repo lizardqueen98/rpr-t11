@@ -12,6 +12,11 @@ public class GeografijaDAO {
     private PreparedStatement statement;
     private GeografijaDAO(){
         try {
+            /*Ne radi mi ne mogu skinuti ono sto treba jer nemam acc
+        String url = "jdbc:oracle:thin:@ora.db.lab.ri.etf.unsa.ba:1521:ETFLAB";
+        String username = "NB18067";
+        String password = "p4ltBwq8";
+        connection = DriverManager.getConnection(url, username, password);*/
         Class.forName("org.sqlite.JDBC");
         connection = DriverManager.getConnection(URL);
         Statement punjenje = connection.createStatement();
@@ -79,7 +84,7 @@ public class GeografijaDAO {
             //statement = connection.createStatement();
             //statement.executeUpdate("delete from grad where drzava="+idDrzave);
         }catch(Exception e){
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
     public ArrayList<Grad> gradovi(){
@@ -104,6 +109,7 @@ public class GeografijaDAO {
             }
         }
         catch (Exception e){
+            e.printStackTrace();
             //System.out.println("Ne valja upit.");
         }
         return gradovi;
@@ -118,7 +124,7 @@ public class GeografijaDAO {
             statement.executeUpdate();
         }
         catch(Exception e){
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
     public void izmijeniGrad(Grad grad){
@@ -149,16 +155,22 @@ public class GeografijaDAO {
             statement.setInt(1,idGrada);
             result = statement.executeQuery();
             Grad grad =new Grad();
-            grad.setId(result.getInt(1));
-            grad.setNaziv(result.getString(2));
-            grad.setBrojStanovnika(result.getInt(3));
-            grad.setDrzava(drz);
-            drz.setGlavniGrad(grad);
-            drz.setNaziv(drzava);
+            try{
+                grad.setId(result.getInt(1));
+                grad.setNaziv(result.getString(2));
+                grad.setBrojStanovnika(result.getInt(3));
+                grad.setDrzava(drz);
+                drz.setGlavniGrad(grad);
+                drz.setNaziv(drzava);
+            }catch(Exception e){
+                grad=null;
+                drz.setGlavniGrad(null);
+                drz.setNaziv(drzava);
+            }
         }
         catch(Exception e){
             e.printStackTrace();
-            System.out.println("Ne valja upit.");
+            //System.out.println("Ne valja upit.");
         }
         return drz;
     }
@@ -171,6 +183,51 @@ public class GeografijaDAO {
             statement.executeUpdate();
         }
         catch(Exception e){
+
+        }
+    }
+    public ArrayList<Drzava> drzave(){
+        ArrayList<Drzava> drzave = new ArrayList<>();
+        try {
+            //statement = connection.createStatement();
+            statement = connection.prepareStatement("SELECT * FROM drzava");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                Drzava drzava = new Drzava();
+                drzava.setId(result.getInt(1));
+                drzava.setNaziv(result.getString(2));
+                //drzava.setGlavniGrad(result.getInt(3));
+                int idGrada=result.getInt(3);
+                PreparedStatement podupit = connection.prepareStatement("SELECT * FROM grad WHERE id=?");
+                podupit.setInt(1,idGrada);
+                ResultSet rs = podupit.executeQuery();
+                Grad grad = new Grad();
+                try {
+                    grad.setId(rs.getInt(1));
+                    grad.setNaziv(rs.getString(2));
+                    grad.setBrojStanovnika(rs.getInt(3));
+                    grad.setDrzava(drzava);
+                    drzava.setGlavniGrad(grad);
+                    drzave.add(drzava);
+                }catch(Exception e){
+                    grad=null;
+                    drzava.setGlavniGrad(grad);
+                    drzave.add(drzava);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            //System.out.println("Ne valja upit.");
+        }
+        return drzave;
+    }
+    public void obrisiGrad(String grad){
+        try {
+            statement = connection.prepareStatement("delete from grad where naziv=?");
+            statement.setString(1, grad);
+            statement.executeUpdate();
+        }catch(Exception e){
 
         }
     }

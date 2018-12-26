@@ -31,10 +31,10 @@ public class Main extends Application {
         System.out.println("Glavni grad "+drzava+"-e je "+grad.getNaziv());
     }
     public static void main(String[] args) {
-        //launch(args);/*
+        launch(args);/*
         /*System.out.println("Gradovi su:\n" + ispisiGradove());
         glavniGrad();*/
-        GeografijaDAO gdao = GeografijaDAO.getInstance();
+        //GeografijaDAO gdao = GeografijaDAO.getInstance();
         /*Grad g=gdao.glavniGrad("Francuska");
         System.out.println(g.getBrojStanovnika()+" "+g.getNaziv());
         Drzava d=gdao.nadjiDrzavu("Velika Britanija");
@@ -43,17 +43,19 @@ public class Main extends Application {
         /*for(Grad g:gradovi){
             System.out.println(g.getBrojStanovnika()+" "+g.getNaziv()+" "+g.getDrzava().getNaziv());}*/
         /*GeografijaDAO dao = GeografijaDAO.getInstance();*/
-        Grad bech = gdao.glavniGrad("Austrija");
+        /*Grad bech = gdao.glavniGrad("Austrija");
         bech.setNaziv("Vienna");
         gdao.izmijeniGrad(bech);
 
         ArrayList<Grad> gradovi = gdao.gradovi();
-        System.out.println(gradovi.get(2).getNaziv());
+        System.out.println(gradovi.get(2).getNaziv());*/
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("opcije.fxml"));
+        FXMLLoader loader1 = new FXMLLoader(getClass().getResource("glavna.fxml"));
+        GeografijaDAO gdao = GeografijaDAO.getInstance();
+        loader1.setController(new GlavnaKontroler(gdao));
         Parent root1 = loader1.load();
         primaryStage.setTitle("Meni");
         primaryStage.setScene(new Scene(root1, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE));

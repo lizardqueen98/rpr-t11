@@ -44,4 +44,8 @@ public class Grad implements Comparable<Grad>{
         if(brojStanovnika==o.brojStanovnika) return 0;
         return 1;
     }
+    @Override
+    public String toString(){
+        return naziv;
+    }
 }

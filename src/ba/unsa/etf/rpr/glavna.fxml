@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="349.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="drzava" layoutY="72.0" prefHeight="277.0" prefWidth="219.0">
+        <columns>
+          <TableColumn fx:id="nazivDrzave" prefWidth="126.0" text="Naziv drzave" />
+          <TableColumn fx:id="glavniGrad" prefWidth="91.0" text="Glavni grad" />
+        </columns>
+      </TableView>
+      <TableView fx:id="grad" layoutX="218.0" layoutY="72.0" prefHeight="277.0" prefWidth="343.0">
+        <columns>
+          <TableColumn fx:id="imeGrada" prefWidth="89.0" text="Ime grada" />
+          <TableColumn fx:id="brojStanovnika" prefWidth="126.0" text="Broj stanovnika" />
+            <TableColumn fx:id="Drzava" prefWidth="127.0" text="Drzava" />
+        </columns>
+      </TableView>
+      <MenuButton fx:id="izbor" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" text="Izbor opcija">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#izbrisiGrad" text="Izbrisi grad" />
+          <MenuItem mnemonicParsing="false" onAction="#izbrisiDrzavu" text="Izbrisi drzavu" />
+            <MenuItem mnemonicParsing="false" onAction="#dodajGrad" text="Dodaj grad" />
+            <MenuItem mnemonicParsing="false" onAction="#dodajDrzavu" text="Dodaj drzavu" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>
