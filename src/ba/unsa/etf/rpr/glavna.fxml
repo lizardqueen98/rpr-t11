@@ -65,7 +65,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <TextField fx:id="drzavaIzvjestaj" layoutX="307.0" layoutY="29.0" />
-      <Button layoutX="472.0" layoutY="29.0" mnemonicParsing="false" onAction="#izvjestajZaDrzavu" text="%izvjestajZaDrzavu" />
+      <TextField fx:id="drzavaIzvjestaj" layoutX="279.0" layoutY="29.0" />
+      <Button layoutX="430.0" layoutY="29.0" mnemonicParsing="false" onAction="#izvjestajZaDrzavu" text="%izvjestajZaDrzavu" />
    </children>
 </AnchorPane>
