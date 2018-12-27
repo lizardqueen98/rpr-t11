@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="349.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
@@ -64,5 +65,7 @@
             </Menu>
         </menus>
       </MenuBar>
+      <TextField fx:id="drzavaIzvjestaj" layoutX="307.0" layoutY="29.0" />
+      <Button layoutX="472.0" layoutY="29.0" mnemonicParsing="false" onAction="#izvjestajZaDrzavu" text="%izvjestajZaDrzavu" />
    </children>
 </AnchorPane>

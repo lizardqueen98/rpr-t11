@@ -32,6 +32,7 @@ public class GlavnaKontroler implements Initializable {
     public TableColumn<Drzava,String> Drzava;
     public MenuButton izbor;
     public Menu jezik;
+    public TextField drzavaIzvjestaj;
     private GeografijaDAO gdao;
     private ObservableList<Grad> gradovi = FXCollections.observableArrayList();
     private ObservableList<Drzava> drzave = FXCollections.observableArrayList();
@@ -116,7 +117,7 @@ public class GlavnaKontroler implements Initializable {
     }
     public void ispisiGradove(ActionEvent actionEvent){
         try{
-            new GradoviReport().showReport(gdao.getConnection());
+            new GradoviReport().showReport(gdao.getConnection(),null);
         }catch(JRException e){
             e.printStackTrace();
         }
@@ -160,14 +161,22 @@ public class GlavnaKontroler implements Initializable {
         reloadScene();
     }
     public void reloadScene(){
+        try{
         bundle = ResourceBundle.getBundle("Translation");
         Scene scene = drzava.getScene();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("glavna.fxml"), bundle);
         loader.setController(this);
-        try {
-            scene.setRoot(loader.load());
-        } catch (IOException ignored) {
+        scene.setRoot(loader.load());
+        } catch (IOException e) {
 
+        }
+    }
+
+    public void izvjestajZaDrzavu(ActionEvent actionEvent) {
+        try{
+            new GradoviReport().showReport(gdao.getConnection(), gdao.nadjiDrzavu(drzavaIzvjestaj.getText()));
+        }catch(JRException e){
+            e.printStackTrace();
         }
     }
 }
