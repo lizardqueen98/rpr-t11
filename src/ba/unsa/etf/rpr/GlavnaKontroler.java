@@ -1,15 +1,14 @@
 package ba.unsa.etf.rpr;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -18,6 +17,7 @@ import net.sf.jasperreports.engine.JRException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import static javafx.scene.layout.Region.USE_COMPUTED_SIZE;
@@ -31,9 +31,11 @@ public class GlavnaKontroler implements Initializable {
     public TableColumn brojStanovnika;
     public TableColumn<Drzava,String> Drzava;
     public MenuButton izbor;
+    public Menu jezik;
     private GeografijaDAO gdao;
     private ObservableList<Grad> gradovi = FXCollections.observableArrayList();
     private ObservableList<Drzava> drzave = FXCollections.observableArrayList();
+    private ResourceBundle bundle;
 
     GlavnaKontroler(GeografijaDAO gdao){
         this.gdao=gdao;
@@ -47,6 +49,8 @@ public class GlavnaKontroler implements Initializable {
             Drzava.setCellValueFactory(new PropertyValueFactory<>("drzava"));
             glavniGrad.setCellValueFactory(new PropertyValueFactory<>("glavniGrad"));
             nazivDrzave.setCellValueFactory(new PropertyValueFactory<>("naziv"));
+            drzave.clear();
+            gradovi.clear();
             gradovi.addAll(gdao.gradovi());
             drzave.addAll(gdao.drzave());
             grad.setItems(gradovi);
@@ -134,5 +138,36 @@ public class GlavnaKontroler implements Initializable {
         File fajl = fileChooser.showSaveDialog(new Stage());
         if (fajl != null)
             doSave(fajl);
+    }
+
+    public void Bosanski(ActionEvent actionEvent) {
+        Locale.setDefault(new Locale("bs", "BA"));
+        reloadScene();
+    }
+
+    public void Engleski(ActionEvent actionEvent) {
+        Locale.setDefault(new Locale("en", "EN"));
+        reloadScene();
+    }
+
+    public void Njemacki(ActionEvent actionEvent) {
+        Locale.setDefault(new Locale("de", "DE"));
+        reloadScene();
+    }
+
+    public void Francuski(ActionEvent actionEvent) {
+        Locale.setDefault(new Locale("fr", "FR"));
+        reloadScene();
+    }
+    public void reloadScene(){
+        bundle = ResourceBundle.getBundle("Translation");
+        Scene scene = drzava.getScene();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("glavna.fxml"), bundle);
+        loader.setController(this);
+        try {
+            scene.setRoot(loader.load());
+        } catch (IOException ignored) {
+
+        }
     }
 }

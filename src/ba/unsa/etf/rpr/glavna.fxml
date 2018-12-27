@@ -13,18 +13,18 @@
    <children>
       <TableView fx:id="drzava" layoutY="72.0" prefHeight="277.0" prefWidth="219.0">
         <columns>
-          <TableColumn fx:id="nazivDrzave" prefWidth="126.0" text="Naziv drzave" />
-          <TableColumn fx:id="glavniGrad" prefWidth="91.0" text="Glavni grad" />
+          <TableColumn fx:id="nazivDrzave" prefWidth="126.0" text="%Nazivdrzave" />
+          <TableColumn fx:id="glavniGrad" prefWidth="91.0" text="%Glavnigrad" />
         </columns>
       </TableView>
       <TableView fx:id="grad" layoutX="218.0" layoutY="72.0" prefHeight="277.0" prefWidth="343.0">
         <columns>
-          <TableColumn fx:id="imeGrada" prefWidth="89.0" text="Ime grada" />
-          <TableColumn fx:id="brojStanovnika" prefWidth="126.0" text="Broj stanovnika" />
-            <TableColumn fx:id="Drzava" prefWidth="127.0" text="Drzava" />
+          <TableColumn fx:id="imeGrada" prefWidth="89.0" text="%Imegrada" />
+          <TableColumn fx:id="brojStanovnika" prefWidth="126.0" text="%Brojstanovnika" />
+            <TableColumn fx:id="Drzava" prefWidth="127.0" text="%Drzava" />
         </columns>
       </TableView>
-      <MenuButton fx:id="izbor" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" text="Izbor opcija">
+      <MenuButton fx:id="izbor" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" text="%Izboropcija">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#izbrisiGrad" text="Izbrisi grad" />
           <MenuItem mnemonicParsing="false" onAction="#izbrisiDrzavu" text="Izbrisi drzavu" />
@@ -32,7 +32,7 @@
             <MenuItem mnemonicParsing="false" onAction="#dodajDrzavu" text="Dodaj drzavu" />
         </items>
       </MenuButton>
-      <Button layoutX="128.0" layoutY="29.0" mnemonicParsing="false" onAction="#ispisiGradove" text="Ispisi gradove" />
+      <Button layoutX="128.0" layoutY="29.0" mnemonicParsing="false" onAction="#ispisiGradove" text="%Napraviizvjestaj" />
       <MenuBar layoutX="14.0" layoutY="2.0">
         <menus>
           <Menu mnemonicParsing="false" text="File">
@@ -50,6 +50,18 @@
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="View">
+               <items>
+                  <Menu fx:id="jezik" mnemonicParsing="false" text="Language">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#Bosanski" text="Bosanski" />
+                        <MenuItem mnemonicParsing="false" onAction="#Engleski" text="Engleski" />
+                        <MenuItem mnemonicParsing="false" onAction="#Njemacki" text="Njemački" />
+                        <MenuItem mnemonicParsing="false" onAction="#Francuski" text="Francuski" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
