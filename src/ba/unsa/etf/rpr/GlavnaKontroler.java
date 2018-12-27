@@ -61,11 +61,13 @@ public class GlavnaKontroler implements Initializable {
         }
     }
     public void izbrisiGrad(){
+        if(grad.getSelectionModel().getSelectedItem()==null) return;
         gdao.obrisiGrad(grad.getSelectionModel().getSelectedItem().getNaziv());
         gradovi.clear();
         gradovi.addAll(gdao.gradovi());
     }
    public void izbrisiDrzavu(){
+        if(drzava.getSelectionModel().getSelectedItem()==null) return;
         gdao.obrisiDrzavu(drzava.getSelectionModel().getSelectedItem().getNaziv());
         drzave.clear();
         gradovi.clear();
