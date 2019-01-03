@@ -9,21 +9,21 @@ import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 import net.sf.jasperreports.swing.JRViewer;
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GradoviReport extends JFrame {
     public void showReport(Connection conn, Drzava drzava) throws JRException {
-        String reportSrcFile;
+        try {
+
+            InputStream reportSrcFile;
         if(drzava==null){
-            reportSrcFile = getClass().getResource("/reports/gradovi.jrxml").getFile();
+                reportSrcFile = getClass().getResource("/reports/gradovi.jrxml").openStream();
         }
-        else reportSrcFile = getClass().getResource("/reports/gradov2i.jrxml").getFile();
-        String reportsDir = getClass().getResource("/reports/").getFile();
+        else reportSrcFile = getClass().getResource("/reports/gradov2i.jrxml").openStream();
+        InputStream reportsDir = getClass().getResource("/reports/").openStream();
 
         JasperReport jasperReport = JasperCompileManager.compileReport(reportSrcFile);
         // Fields for resources path
@@ -39,7 +39,13 @@ public class GradoviReport extends JFrame {
         this.add(viewer);
         this.setSize(700, 500);
         this.setVisible(true);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
+
     public void saveAs(String format, Connection conn){
         String reportSrcFile = getClass().getResource("/reports/gradovi.jrxml").getFile();
         String reportsDir = getClass().getResource("/reports/").getFile();
