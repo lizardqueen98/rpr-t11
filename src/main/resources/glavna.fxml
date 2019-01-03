@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="349.0" prefWidth="561.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="drzava" layoutY="72.0" prefHeight="277.0" prefWidth="219.0">
+        <columns>
+          <TableColumn fx:id="nazivDrzave" prefWidth="126.0" text="%Nazivdrzave" />
+          <TableColumn fx:id="glavniGrad" prefWidth="91.0" text="%Glavnigrad" />
+        </columns>
+      </TableView>
+      <TableView fx:id="grad" layoutX="218.0" layoutY="72.0" prefHeight="277.0" prefWidth="343.0">
+        <columns>
+          <TableColumn fx:id="imeGrada" prefWidth="89.0" text="%Imegrada" />
+          <TableColumn fx:id="brojStanovnika" prefWidth="126.0" text="%Brojstanovnika" />
+            <TableColumn fx:id="Drzava" prefWidth="127.0" text="%Drzava" />
+        </columns>
+      </TableView>
+      <MenuButton fx:id="izbor" layoutX="14.0" layoutY="29.0" mnemonicParsing="false" text="%Izboropcija">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#izbrisiGrad" text="Izbrisi grad" />
+          <MenuItem mnemonicParsing="false" onAction="#izbrisiDrzavu" text="Izbrisi drzavu" />
+            <MenuItem mnemonicParsing="false" onAction="#dodajGrad" text="Dodaj grad" />
+            <MenuItem mnemonicParsing="false" onAction="#dodajDrzavu" text="Dodaj drzavu" />
+        </items>
+      </MenuButton>
+      <Button layoutX="128.0" layoutY="29.0" mnemonicParsing="false" onAction="#ispisiGradove" text="%Napraviizvjestaj" />
+      <MenuBar layoutX="14.0" layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#save" text="Save As" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="View">
+               <items>
+                  <Menu fx:id="jezik" mnemonicParsing="false" text="Language">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#Bosanski" text="Bosanski" />
+                        <MenuItem mnemonicParsing="false" onAction="#Engleski" text="Engleski" />
+                        <MenuItem mnemonicParsing="false" onAction="#Njemacki" text="Njemački" />
+                        <MenuItem mnemonicParsing="false" onAction="#Francuski" text="Francuski" />
+                     </items>
+                  </Menu>
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <TextField fx:id="drzavaIzvjestaj" layoutX="279.0" layoutY="29.0" />
+      <Button layoutX="430.0" layoutY="29.0" mnemonicParsing="false" onAction="#izvjestajZaDrzavu" text="%izvjestajZaDrzavu" />
+   </children>
+</AnchorPane>
